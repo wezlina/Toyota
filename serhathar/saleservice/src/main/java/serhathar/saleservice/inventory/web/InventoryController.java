@@ -1,7 +1,7 @@
-package com.productservice.serhathar.inventory.web;
+package serhathar.saleservice.inventory.web;
 
-import com.productservice.serhathar.inventory.api.InventoryDto;
-import com.productservice.serhathar.inventory.api.InventoryService;
+import serhathar.saleservice.inventory.api.InventoryDto;
+import serhathar.saleservice.inventory.api.InventoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +34,8 @@ public class InventoryController {
     }
 
     @PutMapping("/{inventoryId}/products/{productId}/add")
-    public int addProductToInventory(@PathVariable String inventoryId, @PathVariable String productId) {
-        return service.addProductToInventory(inventoryId, productId);
+    public void addProductToInventory(@PathVariable String inventoryId, @PathVariable String productId) {
+        service.addProductToInventory(inventoryId, productId);
     }
 
     @PutMapping("/{inventoryId}/products/{productId}/remove")

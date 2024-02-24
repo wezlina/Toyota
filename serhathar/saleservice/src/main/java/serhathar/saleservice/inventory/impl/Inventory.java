@@ -1,6 +1,5 @@
-package com.productservice.serhathar.inventory.impl;
+package serhathar.saleservice.inventory.impl;
 
-import com.productservice.serhathar.product.impl.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,11 +31,12 @@ public class Inventory {
     @Column(name = COL_NAME)
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL,
+    @ElementCollection
+    @Column(name = COL_LIST)
+    private List<String> productIdList;
+    /*@ManyToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     @JoinTable(name = "inventory_products",
             joinColumns = @JoinColumn(name = "inventory_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = COL_LIST)
-    private List<Product> productList;
+            inverseJoinColumns = @JoinColumn(name = "product_id"))*/
 }

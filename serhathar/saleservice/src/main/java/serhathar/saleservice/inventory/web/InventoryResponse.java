@@ -1,7 +1,6 @@
-package com.productservice.serhathar.inventory.web;
+package serhathar.saleservice.inventory.web;
 
-import com.productservice.serhathar.inventory.api.InventoryDto;
-import com.productservice.serhathar.product.api.ProductDto;
+import serhathar.saleservice.inventory.api.InventoryDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,13 +12,13 @@ public class InventoryResponse {
 
     private String id;
     private String name;
-    private List<ProductDto> productList;
+    private List<String> productIdList;
 
     public static InventoryResponse toResponse(InventoryDto dto) {
         return InventoryResponse.builder()
                 .id(dto.getId())
                 .name(dto.getName())
-                .productList(dto.getProductList())
+                .productIdList(dto.getProductIdList())
                 .build();
     }
 }

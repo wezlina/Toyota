@@ -1,6 +1,6 @@
-package com.productservice.serhathar.inventory.api;
+package serhathar.saleservice.inventory.api;
 
-import com.productservice.serhathar.inventory.impl.InventoryRepository;
+import serhathar.saleservice.inventory.impl.InventoryRepository;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public interface InventoryService {
 
     InventoryRepository updateInventory(String id, InventoryDto dto);
 
-    int addProductToInventory(String inventoryId, String productId);
+    void addProductToInventory(String inventoryId, String productId);
 
     void removeProductFromInventory(String inventoryId, String productId);
 }

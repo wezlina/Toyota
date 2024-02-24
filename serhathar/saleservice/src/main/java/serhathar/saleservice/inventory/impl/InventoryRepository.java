@@ -1,6 +1,6 @@
-package com.productservice.serhathar.inventory.impl;
+package serhathar.saleservice.inventory.impl;
 
-import com.productservice.serhathar.inventory.api.InventoryDto;
+import serhathar.saleservice.inventory.api.InventoryDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
