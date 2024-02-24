@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class SerhatharApplication {
+public class ProductServiceApplication {
 
 	public static void main(String[] args) {//eureka, cloud, openfeign eksik.
 
-		SpringApplication.run(SerhatharApplication.class, args);
+		SpringApplication.run(ProductServiceApplication.class, args);
 	}
 
 }
