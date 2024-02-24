@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +64,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> findAllByStatusAndCategoryStatus(Boolean productStatus, Boolean categoryStatus) {
         return repository.findAllByStatusAndCategoryStatus(productStatus, categoryStatus).stream().map(this::toDto).toList();
+    }
+
+    @Override
+    public List<ProductDto> findProductById(String id) {
+        return repository.findProductById(id).stream().map(this::toDto).toList();
     }
 
     @Override

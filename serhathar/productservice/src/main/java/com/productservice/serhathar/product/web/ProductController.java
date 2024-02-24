@@ -27,6 +27,12 @@ public class ProductController {
         return ResponseEntity.ok(productResponseList);
     }
 
+    @GetMapping(path = "/get/{id}")
+    public ResponseEntity<List<ProductResponse>> getProductById(@PathVariable String id) {
+        List<ProductResponse> productResponseList = toResponse(service.findProductById(id));
+        return ResponseEntity.ok(productResponseList);
+    }
+
     @GetMapping(path = "/get-all")
     public ResponseEntity<List<ProductResponse>> getAllProducts() {
         List<ProductResponse> productResponseList = toResponse(service.getAllProducts());
@@ -45,8 +51,10 @@ public class ProductController {
         return ResponseEntity.ok(productResponseList);
     }
 
+
     @PutMapping(path = "/activate-status/{id}")
     public String activateCategory(@PathVariable(value = "id") String id) {
+
         return service.activateProduct(id);
     }
 
@@ -58,6 +66,7 @@ public class ProductController {
 
     @PutMapping(path = "/delete-status/{id}")
     public String delete_statusProduct(@PathVariable(value = "id") String id) {
+
         return service.deleteProduct(id);
     }
 
