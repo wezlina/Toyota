@@ -14,5 +14,4 @@ public class SaleserviceApplication {
 
 		SpringApplication.run(SaleserviceApplication.class, args);
 	}
-
 }

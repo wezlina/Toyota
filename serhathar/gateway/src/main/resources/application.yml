@@ -7,11 +7,11 @@ spring:
         - id: product-service
           uri: lb://product-service
           predicates:
-            - Path=/v1/products/**
+            - Path=/v1/product-service/**
         - id: sale-service
           uri: lb://sale-service
           predicates:
-            - Path=/v1/sale/**
+            - Path=/v1/sale-service/**
       discovery:
         locator:
           enabled: true
@@ -22,8 +22,14 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      default-zone: ${EUREKA.URI:http://localhost:8761/eureka}
-
+      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
   instance:
     prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: info
 
