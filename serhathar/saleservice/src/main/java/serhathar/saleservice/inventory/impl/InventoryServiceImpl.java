@@ -1,13 +1,17 @@
 package serhathar.saleservice.inventory.impl;
 
+import lombok.Data;
 import serhathar.saleservice.inventory.api.InventoryDto;
 import serhathar.saleservice.inventory.api.InventoryService;
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import serhathar.saleservice.inventory.api.ProductDto;
+import serhathar.saleservice.inventory.client.ProductFeignClient;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -15,8 +19,7 @@ import java.util.List;
 public class InventoryServiceImpl implements InventoryService {
 
     private final InventoryRepository repository;
-    //private final CategoryServiceImpl categoryService;
-    //private final ProductServiceImpl productService;
+    private final ProductFeignClient client;
 
     @Override
     @Transactional
@@ -78,16 +81,23 @@ public class InventoryServiceImpl implements InventoryService {
     private Inventory toEntity(InventoryDto dto) {
         Inventory inventory = new Inventory();
         inventory.setName(dto.getName());
-        inventory.setProductIdList(dto.getProductIdList());
+        /*for (int i = 0; i <= dto.getProductList().size(); i++) {
+            inventory.setProductIdList(Collections.singletonList(client.getProductById1(dto.getProductList().get(1).getId()).getId()));
+        }*/
         //inventory.setProductList(toProductList(dto.getId()));
         return inventory;
     }
 
     private InventoryDto toDto(Inventory inventory) {
+        List<ProductDto> dtoList = new ArrayList<>();
+        /*for (int i = 0; i <= inventory.getProductIdList().size(); i++) {
+            ProductDto dto = new ProductDto();
+            dto = client.getProductById1(inventory.getProductIdList().get(i));
+            dtoList.add(dto);
+        }*/
         return InventoryDto.builder()
                 .id(inventory.getId())
-                .productIdList(inventory.getProductIdList())
-                //.productList(toProductDtoList(inventory.getId()))
+                .productList(dtoList)
                 .name(inventory.getName())
                 .build();
     }

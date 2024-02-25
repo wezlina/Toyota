@@ -12,5 +12,4 @@ public interface InventoryRepository extends JpaRepository<Inventory, String> {
 
     Inventory getInventoryById(String id);
 
-    List<InventoryDto> getInventoriesById(String id);
 }

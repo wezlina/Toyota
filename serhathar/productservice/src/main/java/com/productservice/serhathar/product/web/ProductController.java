@@ -2,18 +2,22 @@ package com.productservice.serhathar.product.web;
 
 import com.productservice.serhathar.product.api.ProductDto;
 import com.productservice.serhathar.product.api.ProductService;
+import com.productservice.serhathar.product.impl.Product;
+import com.productservice.serhathar.product.impl.ProductServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/products")
+@Validated
+@RequestMapping("/v1/product-service")
 public class ProductController {
-    private final ProductService service;
+    private final ProductServiceImpl service;
 
     @PostMapping(path = "/add")
     public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest request) {
@@ -31,6 +35,12 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> getProductById(@PathVariable String id) {
         List<ProductResponse> productResponseList = toResponse(service.findProductById(id));
         return ResponseEntity.ok(productResponseList);
+    }
+
+    @GetMapping(path = "getBy/{id}")
+    public ProductDto getProductById1(@PathVariable String id) {
+        ProductDto productDto = service.toDto(service.getProductById(id));
+        return productDto;
     }
 
     @GetMapping(path = "/get-all")

@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,8 +33,8 @@ public class Inventory {
     private String name;
 
     @ElementCollection
-    @Column(name = COL_LIST)
-    private List<String> productIdList;
+    @Column(name = COL_LIST, nullable = true)
+    private List<String> productIdList = new ArrayList<>();
     /*@ManyToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     @JoinTable(name = "inventory_products",

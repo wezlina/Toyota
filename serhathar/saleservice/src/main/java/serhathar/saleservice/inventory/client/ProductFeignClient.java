@@ -1,6 +1,7 @@
 package serhathar.saleservice.inventory.client;
 
 import jakarta.validation.Valid;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +14,17 @@ import serhathar.saleservice.inventory.web.ProductResponse;
 
 import java.util.List;
 
-@FeignClient(name = "products", path = "/v1/products")
+@FeignClient(name = "product-service", path = "/v1/product-service")
+@EnableFeignClients
 public interface ProductFeignClient {
     @GetMapping(path = "/get/{categoryName}")
     ResponseEntity<List<ProductResponse>> getAllProducts(@PathVariable String categoryName);
 
     @GetMapping(path = "/get/{id}")
     ResponseEntity<List<ProductResponse>> getProductById(@PathVariable String id);
+
+    @GetMapping(path = "getBy/{id}")
+    ProductDto getProductById1(@PathVariable String id);
 
     @GetMapping(path = "/get-all")
     ResponseEntity<List<ProductResponse>> getAllProducts();
@@ -39,6 +44,4 @@ public interface ProductFeignClient {
 
     @PutMapping(path = "/delete-status/{id}")
     String delete_statusProduct(@PathVariable(value = "id") String id);
-
-    public List<ProductResponse> toResponse(List<ProductDto> productDtoList);
 }

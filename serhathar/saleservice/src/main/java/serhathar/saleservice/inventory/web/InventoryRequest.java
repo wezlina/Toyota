@@ -3,6 +3,7 @@ package serhathar.saleservice.inventory.web;
 import serhathar.saleservice.inventory.api.InventoryDto;
 import lombok.Builder;
 import lombok.Data;
+import serhathar.saleservice.inventory.api.ProductDto;
 
 import java.util.List;
 
@@ -11,12 +12,12 @@ import java.util.List;
 public class InventoryRequest {
 
     private String name;
-    private List<String> productIdList;
+    private List<ProductDto> productList;
 
     public InventoryDto toDto() {
         return InventoryDto.builder()
                 .name(name)
-                .productIdList(productIdList)
+                .productList(productList)
                 .build();
     }
 }

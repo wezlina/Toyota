@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/serhathar/serhathar/pom.xml" />
         <option value="$PROJECT_DIR$/serhathar/saleservice/pom.xml" />
         <option value="$PROJECT_DIR$/serhathar/productservice/pom.xml" />
+        <option value="$PROJECT_DIR$/serhathar/gateway/pom.xml" />
       </list>
     </option>
   </component>
