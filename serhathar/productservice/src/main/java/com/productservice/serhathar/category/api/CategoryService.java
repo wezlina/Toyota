@@ -20,6 +20,4 @@ public interface CategoryService {
     Category getByName(String name);
 
     List<CategoryDto> findByStatusTrue();
-    /*public void addProductToCategory(String categoryId, String productId);
-    public void removeProductFromCategory(String categoryId, String productId);*/
 }

@@ -1,6 +1,5 @@
 package serhathar.saleservice.inventory.web;
 
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import serhathar.saleservice.inventory.api.InventoryDto;
 import serhathar.saleservice.inventory.api.InventoryService;
 import jakarta.validation.Valid;

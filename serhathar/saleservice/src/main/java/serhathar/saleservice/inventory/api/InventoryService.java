@@ -1,7 +1,6 @@
 package serhathar.saleservice.inventory.api;
 
 import serhathar.saleservice.inventory.impl.InventoryRepository;
-import serhathar.saleservice.inventory.impl.InventoryServiceImpl;
 
 import java.util.List;
 

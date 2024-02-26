@@ -4,7 +4,6 @@ import serhathar.saleservice.inventory.api.InventoryDto;
 import lombok.Builder;
 import lombok.Data;
 import serhathar.saleservice.inventory.api.ProductDto;
-import serhathar.saleservice.inventory.client.ProductFeignClient;
 
 import java.util.List;
 

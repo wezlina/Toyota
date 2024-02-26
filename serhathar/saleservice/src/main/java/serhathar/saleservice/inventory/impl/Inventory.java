@@ -35,9 +35,4 @@ public class Inventory {
     @ElementCollection
     @Column(name = COL_LIST, nullable = true)
     private List<String> productIdList = new ArrayList<>();
-    /*@ManyToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
-    @JoinTable(name = "inventory_products",
-            joinColumns = @JoinColumn(name = "inventory_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))*/
 }

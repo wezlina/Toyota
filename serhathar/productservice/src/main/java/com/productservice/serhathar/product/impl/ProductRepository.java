@@ -7,8 +7,12 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
     Optional<Object> findByName(String name);
+
     List<Product> findProductById(String id);
+
     List<Product> findAllByStatusTrue();
+
     List<Product> findAllByStatusAndCategoryStatus(Boolean productStatus, Boolean categoryStatus);
+
     Product getProductById(String id);
 }

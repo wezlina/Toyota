@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -75,14 +74,15 @@ public class ProductServiceImpl implements ProductService {
     public String deleteProduct(String id) {
         Product product = repository.getProductById(id);
         product.setStatus(false);
-        updateProduct(id,toDto(product));
+        updateProduct(id, toDto(product));
         return "Product successfully deactivated";
     }
+
     @Override
     public String activateProduct(String id) {
         Product product = repository.getProductById(id);
         product.setStatus(true);
-        updateProduct(id,toDto(product));
+        updateProduct(id, toDto(product));
         return "Product successfully activated";
     }
 

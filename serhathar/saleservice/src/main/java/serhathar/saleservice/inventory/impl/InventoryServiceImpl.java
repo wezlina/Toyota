@@ -1,6 +1,5 @@
 package serhathar.saleservice.inventory.impl;
 
-import lombok.Data;
 import serhathar.saleservice.inventory.api.InventoryDto;
 import serhathar.saleservice.inventory.api.InventoryService;
 import jakarta.persistence.EntityExistsException;
@@ -11,7 +10,6 @@ import serhathar.saleservice.inventory.api.ProductDto;
 import serhathar.saleservice.inventory.client.ProductFeignClient;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -93,7 +91,6 @@ public class InventoryServiceImpl implements InventoryService {
 
     private InventoryDto toDto(Inventory inventory) {
         List<ProductDto> productList = new ArrayList<>();
-        int sayi = inventory.getProductIdList().size();
         for (int i = 0; i < inventory.getProductIdList().size(); i++) {
             productList.add(client.getProductById1(inventory.getProductIdList().get(i)));
         }

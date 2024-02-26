@@ -51,22 +51,6 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDto> findByStatusTrue() {
         return repository.findAllByStatusTrue().stream().map(this::toDto).toList();
     }
-/*
-    @Override
-    public void addProductToCategory(String categoryId, String productId) {
-        Category category = repository.getCategoryById(categoryId);
-        Product product = productService.getProductById(productId);
-        category.getProductList().add(product);
-        repository.save(category);
-    }
-
-    @Override
-    public void removeProductFromCategory(String categoryId, String productId) {
-        Category category = repository.getCategoryById(categoryId);
-        Product product = productService.getProductById(productId);
-        category.getProductList().remove(product);
-        repository.save(category);
-    }*/
 
     @Override
     public List<CategoryDto> getAllCategory() {

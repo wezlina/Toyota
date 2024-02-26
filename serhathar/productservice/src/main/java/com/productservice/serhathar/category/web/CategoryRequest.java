@@ -12,6 +12,7 @@ public class CategoryRequest {
     private final String name;
     private final String description;
     private final Boolean status;
+
     public CategoryDto toDto() {
         return CategoryDto.builder()
                 .name(name)

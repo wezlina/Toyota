@@ -1,13 +1,10 @@
 package com.productservice.serhathar.product.web;
 
 import com.productservice.serhathar.product.api.ProductDto;
-import com.productservice.serhathar.product.api.ProductService;
-import com.productservice.serhathar.product.impl.Product;
 import com.productservice.serhathar.product.impl.ProductServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
