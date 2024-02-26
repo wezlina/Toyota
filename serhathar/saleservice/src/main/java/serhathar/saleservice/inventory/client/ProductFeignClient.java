@@ -17,6 +17,7 @@ import java.util.List;
 @FeignClient(name = "product-service", path = "/v1/product-service")
 @EnableFeignClients
 public interface ProductFeignClient {
+
     @GetMapping(path = "/get/{categoryName}")
     ResponseEntity<List<ProductResponse>> getAllProducts(@PathVariable String categoryName);
 

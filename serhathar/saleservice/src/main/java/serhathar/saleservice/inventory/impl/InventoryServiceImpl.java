@@ -80,63 +80,28 @@ public class InventoryServiceImpl implements InventoryService {
 
     private Inventory toEntity(InventoryDto dto) {
         Inventory inventory = new Inventory();
+        List<String> productIdList = new ArrayList<>();
+
+        for (int i = 0; i < dto.getProducList().size(); i++) {
+            productIdList.add(dto.getProducList().get(i).getId());
+        }
+
+        inventory.setProductIdList(productIdList);
         inventory.setName(dto.getName());
-        /*for (int i = 0; i <= dto.getProductList().size(); i++) {
-            inventory.setProductIdList(Collections.singletonList(client.getProductById1(dto.getProductList().get(1).getId()).getId()));
-        }*/
-        //inventory.setProductList(toProductList(dto.getId()));
         return inventory;
     }
 
     private InventoryDto toDto(Inventory inventory) {
-        List<ProductDto> dtoList = new ArrayList<>();
-        /*for (int i = 0; i <= inventory.getProductIdList().size(); i++) {
-            ProductDto dto = new ProductDto();
-            dto = client.getProductById1(inventory.getProductIdList().get(i));
-            dtoList.add(dto);
-        }*/
+        List<ProductDto> productList = new ArrayList<>();
+        int sayi = inventory.getProductIdList().size();
+        for (int i = 0; i < inventory.getProductIdList().size(); i++) {
+            productList.add(client.getProductById1(inventory.getProductIdList().get(i)));
+        }
+
         return InventoryDto.builder()
                 .id(inventory.getId())
-                .productList(dtoList)
+                .producList(productList)
                 .name(inventory.getName())
                 .build();
     }
-
-  /*private List<Product> toProductList(String id) {
-        List<Product> productList = new ArrayList<>();
-        Product product = new Product();
-        for (int i = 0; i < repository.getInventoryById(id).getProductList().size(); i++) {
-            product.setId(repository.getInventoryById(id).getProductList().get(i).getId());
-            product.setName(repository.getInventoryById(id).getProductList().get(i).getName());
-            product.setPrice(repository.getInventoryById(id).getProductList().get(i).getPrice());
-            product.setCategoryName(repository.getInventoryById(id).getProductList().get(i).getCategoryName());
-            product.setCreaDate(repository.getInventoryById(id).getProductList().get(i).getCreaDate());
-            product.setStatus(repository.getInventoryById(id).getProductList().get(i).getStatus());
-            product.setBrand(repository.getInventoryById(id).getProductList().get(i).getBrand());
-            product.setBarcode(repository.getInventoryById(id).getProductList().get(i).getBarcode());
-            product.setDescription(repository.getInventoryById(id).getProductList().get(i).getDescription());
-            product.setCategory(repository.getInventoryById(id).getProductList().get(i).getCategory());
-            productList.add(product);
-        }
-        return productList;
-    }
-
-    private List<ProductDto> toProductDtoList(String id) {
-        List<ProductDto> dtos = new ArrayList<>();
-        ProductDto dto = new ProductDto();
-        for (int i = 0; i < repository.getInventoryById(id).getProductList().size(); i++) {
-            dto.setId(repository.getInventoryById(id).getProductList().get(i).getId());
-            dto.setName(repository.getInventoryById(id).getProductList().get(i).getName());
-            dto.setPrice(repository.getInventoryById(id).getProductList().get(i).getPrice());
-            dto.setCategoryName(repository.getInventoryById(id).getProductList().get(i).getCategoryName());
-            dto.setCreaDate(repository.getInventoryById(id).getProductList().get(i).getCreaDate());
-            dto.setStatus(repository.getInventoryById(id).getProductList().get(i).getStatus());
-            dto.setBrand(repository.getInventoryById(id).getProductList().get(i).getBrand());
-            dto.setBarcode(repository.getInventoryById(id).getProductList().get(i).getBarcode());
-            dto.setDescription(repository.getInventoryById(id).getProductList().get(i).getDescription());
-            dto.setCategory(categoryService.toDto(repository.getInventoryById(id).getProductList().get(i).getCategory()));
-            dtos.add(dto);
-        }
-        return dtos;//hatalııı
-    }*/
 }

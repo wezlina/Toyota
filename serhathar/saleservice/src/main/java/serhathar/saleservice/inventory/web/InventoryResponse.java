@@ -4,6 +4,7 @@ import serhathar.saleservice.inventory.api.InventoryDto;
 import lombok.Builder;
 import lombok.Data;
 import serhathar.saleservice.inventory.api.ProductDto;
+import serhathar.saleservice.inventory.client.ProductFeignClient;
 
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class InventoryResponse {
     public static InventoryResponse toResponse(InventoryDto dto) {
         return InventoryResponse.builder()
                 .id(dto.getId())
+                .productList(dto.getProducList())
                 .name(dto.getName())
-                .productList(dto.getProductList())
                 .build();
     }
 }

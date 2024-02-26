@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Validated
 @RequestMapping("/v1/product-service")
 public class ProductController {
     private final ProductServiceImpl service;
