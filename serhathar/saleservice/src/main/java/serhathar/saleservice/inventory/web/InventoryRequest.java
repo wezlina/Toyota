@@ -17,7 +17,7 @@ public class InventoryRequest {
     public InventoryDto toDto() {
         return InventoryDto.builder()
                 .name(name)
-                .producList(productList)
+                .productDtoList(productList)
                 .build();
     }
 }

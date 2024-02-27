@@ -13,5 +13,5 @@ public class InventoryDto {
     //every inventory is uniq for every user
     private String id;
     private String name;
-    private List<ProductDto> producList = new ArrayList<>();
+    private List<ProductDto> productDtoList = new ArrayList<>();
 }

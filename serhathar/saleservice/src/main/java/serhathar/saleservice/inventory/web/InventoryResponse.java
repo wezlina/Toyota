@@ -18,7 +18,7 @@ public class InventoryResponse {
     public static InventoryResponse toResponse(InventoryDto dto) {
         return InventoryResponse.builder()
                 .id(dto.getId())
-                .productList(dto.getProducList())
+                .productList(dto.getProductDtoList())
                 .name(dto.getName())
                 .build();
     }

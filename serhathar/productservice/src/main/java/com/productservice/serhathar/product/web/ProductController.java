@@ -35,8 +35,7 @@ public class ProductController {
 
     @GetMapping(path = "getBy/{id}")
     public ProductDto getProductById1(@PathVariable String id) {
-        ProductDto productDto = service.toDto(service.getProductById(id));
-        return productDto;
+        return service.toDto(service.getProductById(id));
     }
 
     @GetMapping(path = "/get-all")
@@ -56,7 +55,6 @@ public class ProductController {
         List<ProductResponse> productResponseList = toResponse(service.findAllByStatusAndCategoryStatus(true, true));
         return ResponseEntity.ok(productResponseList);
     }
-
 
     @PutMapping(path = "/activate-status/{id}")
     public String activateCategory(@PathVariable(value = "id") String id) {

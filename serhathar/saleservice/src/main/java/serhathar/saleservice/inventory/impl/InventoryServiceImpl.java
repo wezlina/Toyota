@@ -79,11 +79,18 @@ public class InventoryServiceImpl implements InventoryService {
     private Inventory toEntity(InventoryDto dto) {
         Inventory inventory = new Inventory();
         List<String> productIdList = new ArrayList<>();
+        int size = 0;
 
-        for (int i = 0; i < dto.getProducList().size(); i++) {
-            productIdList.add(dto.getProducList().get(i).getId());
+        if (dto.getProductDtoList() == null) {
+            size = 0;
+        }
+        else {
+            size = dto.getProductDtoList().size();
         }
 
+        for (int i = 0; i < size; i++) {
+            productIdList.add(dto.getProductDtoList().get(i).getId());
+        }
         inventory.setProductIdList(productIdList);
         inventory.setName(dto.getName());
         return inventory;
@@ -91,13 +98,22 @@ public class InventoryServiceImpl implements InventoryService {
 
     private InventoryDto toDto(Inventory inventory) {
         List<ProductDto> productList = new ArrayList<>();
-        for (int i = 0; i < inventory.getProductIdList().size(); i++) {
+        int size = 0;
+
+        if (inventory.getProductIdList() == null) {
+            size = 0;
+        }
+        else {
+            size = inventory.getProductIdList().size();
+        }
+
+        for (int i = 0; i < size; i++) {
             productList.add(client.getProductById1(inventory.getProductIdList().get(i)));
         }
 
         return InventoryDto.builder()
                 .id(inventory.getId())
-                .producList(productList)
+                .productDtoList(productList)
                 .name(inventory.getName())
                 .build();
     }
