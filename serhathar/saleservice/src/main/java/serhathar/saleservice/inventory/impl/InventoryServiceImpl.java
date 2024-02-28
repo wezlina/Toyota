@@ -1,15 +1,14 @@
 package serhathar.saleservice.inventory.impl;
 
+import serhathar.saleservice.Item.impl.Item;
 import serhathar.saleservice.inventory.api.InventoryDto;
 import serhathar.saleservice.inventory.api.InventoryService;
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import serhathar.saleservice.inventory.api.ProductDto;
 import serhathar.saleservice.inventory.client.ProductFeignClient;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,18 +34,26 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public void addProductToInventory(String inventoryId, String productId) {
+    public void addProductToInventory(String inventoryId, String productId, Long amount) {
+        Item item = new Item();
+        item.setProduct(productId);
+        item.setAmount(amount);
         Inventory inventory = repository.getInventoryById(inventoryId);
-        inventory.getProductIdList().add(productId);
+        inventory.getProductList().add(item);
         repository.save(inventory);
+        /*Inventory inventory = repository.getInventoryById(inventoryId);
+        ProductDto productDto;
+        inventory.getProductIdList().add(productId);*/
+        //repository.save(inventory);
         /*Product product = productService.getProductById(productId);
         inventory.getProductList().add(product);*/
     }
 
     @Override
+    @Transactional
     public void removeProductFromInventory(String inventoryId, String productId) {
         Inventory inventory = repository.getInventoryById(inventoryId);
-        inventory.getProductIdList().remove(productId);
+        inventory.getProductList().remove(productId);
         repository.save(inventory);
     }
 
@@ -78,10 +85,8 @@ public class InventoryServiceImpl implements InventoryService {
 
     private Inventory toEntity(InventoryDto dto) {
         Inventory inventory = new Inventory();
-        List<String> productIdList = new ArrayList<>();
-        int size = 0;
-
-        if (dto.getProductDtoList() == null) {
+        List<Item> productList = dto.getProductList();
+        /*if (dto.getProductDtoList() == null) {
             size = 0;
         }
         else {
@@ -90,17 +95,16 @@ public class InventoryServiceImpl implements InventoryService {
 
         for (int i = 0; i < size; i++) {
             productIdList.add(dto.getProductDtoList().get(i).getId());
-        }
-        inventory.setProductIdList(productIdList);
+        }*/
+        inventory.setProductList(productList);
         inventory.setName(dto.getName());
         return inventory;
     }
 
     private InventoryDto toDto(Inventory inventory) {
-        List<ProductDto> productList = new ArrayList<>();
-        int size = 0;
+        List<Item> productList = inventory.getProductList();
 
-        if (inventory.getProductIdList() == null) {
+        /*if (inventory.getProductIdList() == null) {
             size = 0;
         }
         else {
@@ -109,11 +113,11 @@ public class InventoryServiceImpl implements InventoryService {
 
         for (int i = 0; i < size; i++) {
             productList.add(client.getProductById1(inventory.getProductIdList().get(i)));
-        }
+        }*/
 
         return InventoryDto.builder()
                 .id(inventory.getId())
-                .productDtoList(productList)
+                .productList(productList)
                 .name(inventory.getName())
                 .build();
     }

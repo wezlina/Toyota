@@ -2,6 +2,7 @@ package serhathar.saleservice.inventory.api;
 
 import lombok.Builder;
 import lombok.Data;
+import serhathar.saleservice.Item.impl.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,5 +14,5 @@ public class InventoryDto {
     //every inventory is uniq for every user
     private String id;
     private String name;
-    private List<ProductDto> productDtoList = new ArrayList<>();
+    private List<Item> productList = new ArrayList<>();
 }

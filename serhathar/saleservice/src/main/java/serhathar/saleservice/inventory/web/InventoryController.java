@@ -33,9 +33,9 @@ public class InventoryController {
         return ResponseEntity.ok(InventoryResponse.toResponse(inventory));
     }
 
-    @PutMapping("/{inventoryId}/products/{productId}/add")
-    public void addProductToInventory(@PathVariable String inventoryId, @PathVariable String productId) {
-        service.addProductToInventory(inventoryId, productId);
+    @PutMapping("/{inventoryId}/products/{productId}/add-{amount}")
+    public void addProductToInventory(@PathVariable String inventoryId, @PathVariable String productId, @PathVariable Long amount) {
+        service.addProductToInventory(inventoryId, productId, amount);
     }
 
     @PutMapping("/{inventoryId}/products/{productId}/remove")

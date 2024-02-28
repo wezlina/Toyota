@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import serhathar.saleservice.Item.impl.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,6 @@ public class Inventory {
     @Column(name = COL_NAME)
     private String name;
 
-    @ElementCollection
-    @Column(name = COL_LIST, nullable = true)
-    private List<String> productIdList = new ArrayList<>();
+    @ManyToMany
+    private List<Item> productList = new ArrayList<>();
 }
