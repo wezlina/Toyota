@@ -112,6 +112,7 @@ public class ProductServiceImpl implements ProductService {
         product.setBarcode(dto.getBarcode());
         product.setCategory(category);
         product.setPrice(dto.getPrice());
+        product.setAmount(dto.getAmount());
         product.setDescription(dto.getDescription());
         return product;
     }
@@ -124,6 +125,7 @@ public class ProductServiceImpl implements ProductService {
                 .creaDate(product.getCreaDate())
                 .description(product.getDescription())
                 .brand(product.getBrand())
+                .amount(product.getAmount())
                 .name(product.getName())
                 .barcode(product.getBarcode())
                 .price(product.getPrice())

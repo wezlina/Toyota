@@ -20,6 +20,7 @@ public class ProductDto {
     private String description;
     private String categoryName;
     private Date creaDate;
+    private Long amount;
     private Boolean status;
     private BigDecimal price;
     private CategoryDto category;

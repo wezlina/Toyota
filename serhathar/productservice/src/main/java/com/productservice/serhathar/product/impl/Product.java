@@ -19,14 +19,15 @@ import java.util.Date;
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Product implements Serializable {
-    public static final String COL_ID = "id";
-    public static final String COL_NAME = "name";
-    public static final String COL_DESCRIPTION = "description";
-    public static final String COL_CREATE_DATE = "create_date";
-    public static final String COL_BRAND = "brand";
-    public static final String COL_BARCODE = "barcode";
-    public static final String COL_PRICE = "price";
-    public static final String COL_CATEGORY_ID = "category_id";
+    private static final String COL_ID = "id";
+    private static final String COL_NAME = "name";
+    private static final String COL_DESCRIPTION = "description";
+    private static final String COL_CREATE_DATE = "create_date";
+    private static final String COL_BRAND = "brand";
+    private static final String COL_BARCODE = "barcode";
+    private static final String COL_QUANTITY = "quantity";
+    private static final String COL_PRICE = "price";
+    private static final String COL_CATEGORY_ID = "category_id";
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -48,8 +49,11 @@ public class Product implements Serializable {
     @Column(name = COL_BRAND)
     private String brand;
 
-    @Column(name = COL_PRICE)
+    @Column(name = COL_PRICE, nullable = false)
     private BigDecimal price;
+
+    @Column(name = COL_QUANTITY, nullable = false)
+    private Long amount;
 
     @Column
     private Boolean status = true;

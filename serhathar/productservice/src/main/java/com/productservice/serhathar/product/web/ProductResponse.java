@@ -20,6 +20,7 @@ public class ProductResponse {
     private Date creaDate;
     private Boolean status;
     private BigDecimal price;
+    private Long amount;
     private CategoryDto category;
 
     public static ProductResponse toResponse(ProductDto dto) {
@@ -28,6 +29,7 @@ public class ProductResponse {
                 .status(dto.getStatus())
                 .description(dto.getDescription())
                 .barcode(dto.getBarcode())
+                .amount(dto.getAmount())
                 .creaDate(dto.getCreaDate())
                 .name(dto.getName())
                 .brand(dto.getBrand())

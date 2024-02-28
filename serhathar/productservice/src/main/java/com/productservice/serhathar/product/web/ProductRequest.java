@@ -18,12 +18,14 @@ public class ProductRequest {
     private final String categoryName;
     private final String description;
     private final String barcode;
+    private Long amount;
     private final Boolean status;
 
     public ProductDto toDto() {
         return ProductDto.builder()
                 .name(name)
                 .brand(brand)
+                .amount(amount)
                 .status(status)
                 .description(description)
                 .price(price)
