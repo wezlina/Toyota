@@ -1,9 +1,9 @@
 package serhathar.saleservice.inventory.web;
 
+import serhathar.saleservice.Item.impl.Item;
 import serhathar.saleservice.inventory.api.InventoryDto;
 import lombok.Builder;
 import lombok.Data;
-import serhathar.saleservice.Item.impl.Item;
 
 import java.util.List;
 

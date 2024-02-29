@@ -7,15 +7,14 @@ import serhathar.saleservice.Item.api.ItemDto;
 @Data
 @Builder
 public class ItemRequest {
-    private String id;
-    private String product;
+
+    private String productId;
     private Long amount;
 
     public ItemDto toDto() {
         return ItemDto.builder()
-                .id(id)
                 .amount(amount)
-                .product(product)
+                .productId(productId)
                 .build();
     }
 }

@@ -33,6 +33,7 @@ public class Inventory {
     @Column(name = COL_NAME)
     private String name;
 
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
     private List<Item> productList = new ArrayList<>();
 }
