@@ -38,10 +38,15 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public void addProductToInventory(String inventoryId, String productId, Long amount) {
-        Inventory inventory = repository.getInventoryById(inventoryId);
-        Item item = itemService.toEntity(itemService.createItem1(productId, amount));
-        inventory.getProductList().add(item);
-        repository.save(inventory);
+        if (itemService.existsItemByProductId(productId)) {
+            itemService.updateItemAmount(productId, amount);
+            //itemService.getItemByProductId(productId).setAmount(itemService.getItemByProductId(productId).getAmount()+amount);
+        }
+        else {
+            Inventory inventory = repository.getInventoryById(inventoryId);//if statement must be made over here
+            ItemDto dto = (itemService.createItem(productId, amount));
+            inventory.getProductList().add(itemService.toEntity(dto));
+        }
     }
 
     @Override

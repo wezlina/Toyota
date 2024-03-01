@@ -26,7 +26,5 @@ public class Item {
     private Long amount;
 
     @Column(name = COL_PRODUCT)
-    private String product_id;
-
-
+    private String productId;
 }

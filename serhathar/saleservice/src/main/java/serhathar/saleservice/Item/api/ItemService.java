@@ -1,8 +1,16 @@
 package serhathar.saleservice.Item.api;
 
+import serhathar.saleservice.Item.impl.Item;
+
 public interface ItemService {
 
     //ItemDto createItem(ItemDto dto);
 
-    ItemDto createItem1(String productId, Long amount);
+    Boolean existsItemByProductId(String productId);
+
+    Item getItemByProductId(String id);
+
+    void updateItemAmount(String productId, Long amount);
+
+    ItemDto createItem(String productId, Long amount);
 }

@@ -1,43 +1,63 @@
 package serhathar.saleservice.Item.impl;
 
-import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import serhathar.saleservice.Item.api.ItemDto;
 import serhathar.saleservice.Item.api.ItemService;
-import serhathar.saleservice.inventory.api.InventoryDto;
-import serhathar.saleservice.inventory.impl.Inventory;
 
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository repository;
-    /*@Override
-    public ItemDto createItem(ItemDto dto) {
-        Item item = toEntity(dto);
-        return toDto(repository.save(item));
+
+    /*public ProductDto createProduct(ProductDto dto) {
+        checkProductExists(dto);
+        Product product = toEntity(dto);
+        return toDto(repository.save(product));
     }*/
 
-    public ItemDto createItem1(String productId, Long amount) {
-        ItemDto itemdto = new ItemDto();
-        itemdto.setProductId(productId);
-        itemdto.setAmount(amount);
-        return toDto(repository.save(toEntity(itemdto)));
+
+    @Override
+    public Boolean existsItemByProductId(String productId) {
+        return repository.existsItemByProductId(productId);
+    }
+
+    @Override
+    public Item getItemByProductId(String id) {
+        return repository.getItemByProductId(id);
+    }
+    /* repository.findById(id)
+                .map(product -> checkProductUpdate(dto, product))
+                .map(repository::save)*/
+
+    @Override
+    public void updateItemAmount(String productId, Long amount) {
+        repository.getItemByProductId(productId).setAmount(repository.getItemByProductId(productId).getAmount() + amount);
+        repository.save(getItemByProductId(productId));
+    }
+
+    @Override
+    @Transactional
+    public ItemDto createItem(String productId, Long amount) {
+        Item item = new Item();
+        item.setProductId(productId);
+        item.setAmount(amount);
+        return toDto(repository.save(item));
     }
 
     public Item toEntity(ItemDto dto) {
         Item item = new Item();
         item.setAmount(dto.getAmount());
-        item.setProduct_id(dto.getProductId());
+        item.setProductId(dto.getProductId());
         return item;
     }
 
     public ItemDto toDto(Item item) {
         return ItemDto.builder()
                 .id(item.getId())
-                .productId(item.getProduct_id())
+                .productId(item.getProductId())
                 .amount(item.getAmount())
                 .build();
     }
