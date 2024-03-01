@@ -1,6 +1,5 @@
 package serhathar.saleservice.inventory.api;
 
-import serhathar.saleservice.inventory.impl.InventoryRepository;
 
 import java.util.List;
 
@@ -15,5 +14,5 @@ public interface InventoryService {
 
     void addProductToInventory(String inventoryId, String productId, Long amount);
 
-    void removeProductFromInventory(String inventoryId, String productId);
+    void removeProductFromInventory(String inventoryId, String productId, Long amount);
 }

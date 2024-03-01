@@ -1,7 +1,6 @@
 package serhathar.saleservice.inventory.impl;
 
 import jakarta.persistence.EntityNotFoundException;
-import serhathar.saleservice.Item.api.ItemDto;
 import serhathar.saleservice.Item.impl.Item;
 import serhathar.saleservice.Item.impl.ItemServiceImpl;
 import serhathar.saleservice.inventory.api.InventoryDto;
@@ -55,10 +54,19 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     @Transactional
-    public void removeProductFromInventory(String inventoryId, String productId) {
+    public void removeProductFromInventory(String inventoryId, String productId, Long amount) {
+        //checkInventoryExists(toDto(repository.getInventoryById(inventoryId)));
         Inventory inventory = repository.getInventoryById(inventoryId);
-        inventory.getProductList().remove(productId);
-        repository.save(inventory);
+        if (itemService.getItemByProductId(productId).getAmount().equals(amount)) {
+            inventory.getProductList().remove(itemService.getItemByProductId(productId));
+            updateInventory(inventoryId,  toDto(inventory));//soft delete will be here
+        }
+        else if (itemService.getItemByProductId(productId).getAmount() < amount) {
+            throw new IllegalArgumentException("number of products to be removed cannot be greater than the existing one.");
+        }
+        else {
+            itemService.updateItemAmount(productId, -amount);
+        }
     }
 
     private void checkInventoryExists(InventoryDto dto) {
@@ -104,23 +112,4 @@ public class InventoryServiceImpl implements InventoryService {
                 .name(inventory.getName())
                 .build();
     }
-}/*if (dto.getProductDtoList() == null) {
-            size = 0;
-        }
-        else {
-            size = dto.getProductDtoList().size();
-        }
-
-        for (int i = 0; i < size; i++) {
-            productIdList.add(dto.getProductDtoList().get(i).getId());
-        }*/
-        /*if (inventory.getProductIdList() == null) {
-            size = 0;
-        }
-        else {
-            size = inventory.getProductIdList().size();
-        }
-
-        for (int i = 0; i < size; i++) {
-            productList.add(client.getProductById1(inventory.getProductIdList().get(i)));
-        }*/
+}
