@@ -12,5 +12,5 @@ public interface ItemService {
 
     void updateItemAmount(String productId, Long amount);
 
-    ItemDto createItem(String productId, Long amount);
+    Item createItem(String productId, Long amount);
 }

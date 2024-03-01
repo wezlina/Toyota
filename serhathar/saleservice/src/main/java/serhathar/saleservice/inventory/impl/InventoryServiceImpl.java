@@ -1,5 +1,6 @@
 package serhathar.saleservice.inventory.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import serhathar.saleservice.Item.api.ItemDto;
 import serhathar.saleservice.Item.impl.Item;
 import serhathar.saleservice.Item.impl.ItemServiceImpl;
@@ -31,21 +32,24 @@ public class InventoryServiceImpl implements InventoryService {
 
 
     @Override
-    public InventoryRepository updateInventory(String id, InventoryDto dto) {
+    public InventoryDto updateInventory(String id, InventoryDto dto) {
 
-        return null;
+        return repository.findById(id)
+                .map(inventory -> checkInventoryUpdate(dto, inventory))
+                .map(repository::save)
+                .map(this::toDto)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
     public void addProductToInventory(String inventoryId, String productId, Long amount) {
         if (itemService.existsItemByProductId(productId)) {
             itemService.updateItemAmount(productId, amount);
-            //itemService.getItemByProductId(productId).setAmount(itemService.getItemByProductId(productId).getAmount()+amount);
         }
         else {
-            Inventory inventory = repository.getInventoryById(inventoryId);//if statement must be made over here
-            ItemDto dto = (itemService.createItem(productId, amount));
-            inventory.getProductList().add(itemService.toEntity(dto));
+            Inventory inventory = repository.getInventoryById(inventoryId);
+            inventory.getProductList().add(itemService.createItem(productId, amount));
+            updateInventory(inventoryId, toDto(inventory));
         }
     }
 
@@ -86,7 +90,6 @@ public class InventoryServiceImpl implements InventoryService {
     private Inventory toEntity(InventoryDto dto) {
         Inventory inventory = new Inventory();
         List<Item> productList = dto.getProductList();
-
         inventory.setProductList(productList);
         inventory.setName(dto.getName());
         return inventory;
@@ -94,7 +97,6 @@ public class InventoryServiceImpl implements InventoryService {
 
     private InventoryDto toDto(Inventory inventory) {
         List<Item> productList = inventory.getProductList();
-
 
         return InventoryDto.builder()
                 .id(inventory.getId())

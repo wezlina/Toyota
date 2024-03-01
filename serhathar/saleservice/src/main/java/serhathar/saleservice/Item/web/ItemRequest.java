@@ -10,7 +10,6 @@ public class ItemRequest {
 
     private String productId;
     private Long amount;
-
     public ItemDto toDto() {
         return ItemDto.builder()
                 .amount(amount)

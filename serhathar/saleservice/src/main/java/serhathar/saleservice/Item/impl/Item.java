@@ -25,6 +25,6 @@ public class Item {
     @Column(name = COL_AMOUNT)
     private Long amount;
 
-    @Column(name = COL_PRODUCT)
+    @Column(name = COL_PRODUCT, unique = true)
     private String productId;
 }

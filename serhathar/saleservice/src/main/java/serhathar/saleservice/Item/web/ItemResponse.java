@@ -14,8 +14,8 @@ public class ItemResponse {
 
     public static ItemResponse toResponse(ItemDto dto) {
         return ItemResponse.builder()
-                .id(dto.getId())
                 .productId(dto.getProductId())
+                .id(dto.getId())
                 .amount(dto.getAmount())
                 .build();
     }

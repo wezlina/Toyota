@@ -12,13 +12,6 @@ import serhathar.saleservice.Item.api.ItemService;
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository repository;
 
-    /*public ProductDto createProduct(ProductDto dto) {
-        checkProductExists(dto);
-        Product product = toEntity(dto);
-        return toDto(repository.save(product));
-    }*/
-
-
     @Override
     public Boolean existsItemByProductId(String productId) {
         return repository.existsItemByProductId(productId);
@@ -40,11 +33,11 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional
-    public ItemDto createItem(String productId, Long amount) {
+    public Item createItem(String productId, Long amount) {
         Item item = new Item();
         item.setProductId(productId);
         item.setAmount(amount);
-        return toDto(repository.save(item));
+        return repository.save(item);
     }
 
     public Item toEntity(ItemDto dto) {
