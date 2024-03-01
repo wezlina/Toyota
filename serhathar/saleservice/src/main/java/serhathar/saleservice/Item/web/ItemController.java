@@ -8,7 +8,7 @@ import serhathar.saleservice.Item.impl.ItemServiceImpl;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/sale-service/items")
-public class ItemController {
+public class ItemController {//only open for admin
 
     private final ItemServiceImpl service;
     /*@PostMapping(path = "/add")
