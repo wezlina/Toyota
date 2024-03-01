@@ -11,7 +11,6 @@ import java.util.List;
 @Data
 public class InventoryDto {
 
-    //every inventory is uniq for every user
     private String id;
     private String name;
     private List<Item> productList = new ArrayList<>();
