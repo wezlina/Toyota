@@ -58,7 +58,6 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     @Transactional
     public void removeProductFromInventory(String inventoryId, String productId, Long amount) {
-        //checkInventoryExists(toDto(repository.getInventoryById(inventoryId)));
         Inventory inventory = repository.getInventoryById(inventoryId);
         if (itemService.getItemByProductId(productId).getAmount().equals(amount)) {
             inventory.getProductList().remove(itemService.getItemByProductId(productId));//item listeden cikiyor ama item nesnesi silinmiyor, soft delete yok
@@ -80,6 +79,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     private Inventory checkInventoryUpdate(InventoryDto dto, Inventory inventory) {
         inventory.setName(dto.getName() == null ? inventory.getName() : dto.getName());
+        //inventory.setProductList(dto.getProductList() == null ? inventory.getProductList() : dto.getProductList());
         inventory.setName(dto.getName() == null ? inventory.getName() : dto.getName());
         return inventory;
     }
@@ -99,38 +99,33 @@ public class InventoryServiceImpl implements InventoryService {
     private Inventory toEntity(InventoryDto dto) {
         Inventory inventory = new Inventory();
         List<Item> productList = new ArrayList<>();
-        int size = dto.getProductList().size();
 
-        try {
+        if(dto.getProductList() != null){
+            int size = dto.getProductList().size();
             for (int i = 0; i < size; i++) {
                 productList.add(itemService.toEntity(dto.getProductList().get(i)));
             }
         }
-        catch(NullPointerException e){
-            throw new NullPointerException("Inventory productList.size() returned null");
-        }
+
+        inventory.setName(dto.getName());
         inventory.setProductList(productList);
         return inventory;
     }
 
 
     private InventoryDto toDto(Inventory inventory) {
-
         List<ItemDto> productList = new ArrayList<>();
-        int size = inventory.getProductList().size();
 
-        try {
+        if (inventory.getProductList() != null){
+            int size = inventory.getProductList().size();
             for (int i = 0; i < size; i++) {
                 productList.add(itemService.toDto(inventory.getProductList().get(i)));
             }
         }
-        catch(NullPointerException e) {
-                throw new NullPointerException("Inventory productList.size() returned null");
-        }
+
         return InventoryDto.builder()
                 .id(inventory.getId())
                 .productList(productList)
-                //.productList(productList)
                 .name(inventory.getName())
                 .build();
     }

@@ -1,4 +1,7 @@
 package serhathar.saleservice.order.impl;
 
-public interface OrderRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderRepository extends JpaRepository<OrderEntity, String> {
+
 }

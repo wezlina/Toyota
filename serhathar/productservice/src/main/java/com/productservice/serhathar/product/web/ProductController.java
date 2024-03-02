@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/v1/product-service")
 public class ProductController {
-    private final ProductServiceImpl service;
+    private final ProductServiceImpl service;//impl mimari hatasi
 
     @PostMapping(path = "/add")
     public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest request) {
