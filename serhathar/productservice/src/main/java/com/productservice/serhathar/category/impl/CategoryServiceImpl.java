@@ -34,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public String activateCategory(String id) {
         Category category = repository.getById(id);
         category.setStatus(true);
@@ -65,6 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public String deleteCategory(String id) {
         Category category = repository.getById(id);
         category.setStatus(false);

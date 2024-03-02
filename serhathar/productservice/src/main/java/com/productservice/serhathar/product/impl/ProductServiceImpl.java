@@ -71,6 +71,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public String deleteProduct(String id) {
         Product product = repository.getProductById(id);
         product.setStatus(false);
@@ -79,6 +80,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public String activateProduct(String id) {
         Product product = repository.getProductById(id);
         product.setStatus(true);

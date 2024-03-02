@@ -33,6 +33,7 @@ public class InventoryServiceImpl implements InventoryService {
 
 
     @Override
+    @Transactional
     public InventoryDto updateInventory(String id, InventoryDto dto) {
 
         return repository.findById(id)
@@ -43,6 +44,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
     public void addProductToInventory(String inventoryId, String productId, Long amount) {
         if (itemService.existsItemByProductId(productId)) {
             itemService.updateItemAmount(productId, amount);
@@ -59,7 +61,7 @@ public class InventoryServiceImpl implements InventoryService {
         //checkInventoryExists(toDto(repository.getInventoryById(inventoryId)));
         Inventory inventory = repository.getInventoryById(inventoryId);
         if (itemService.getItemByProductId(productId).getAmount().equals(amount)) {
-            inventory.getProductList().remove(itemService.getItemByProductId(productId));
+            inventory.getProductList().remove(itemService.getItemByProductId(productId));//item listeden cikiyor ama item nesnesi silinmiyor, soft delete yok
             updateInventory(inventoryId, toDto(inventory));//soft delete will be here
         } else if (itemService.getItemByProductId(productId).getAmount() < amount) {
             throw new IllegalArgumentException("number of products to be removed cannot be greater than the existing one.");
@@ -97,9 +99,15 @@ public class InventoryServiceImpl implements InventoryService {
     private Inventory toEntity(InventoryDto dto) {
         Inventory inventory = new Inventory();
         List<Item> productList = new ArrayList<>();
-        Integer size = dto.getProductList().size();
-        for (int i = 0; i < size; i++) {
-            productList.add(itemService.toEntity(dto.getProductList().get(i)));
+        int size = dto.getProductList().size();
+
+        try {
+            for (int i = 0; i < size; i++) {
+                productList.add(itemService.toEntity(dto.getProductList().get(i)));
+            }
+        }
+        catch(NullPointerException e){
+            throw new NullPointerException("Inventory productList.size() returned null");
         }
         inventory.setProductList(productList);
         return inventory;
@@ -109,9 +117,15 @@ public class InventoryServiceImpl implements InventoryService {
     private InventoryDto toDto(Inventory inventory) {
 
         List<ItemDto> productList = new ArrayList<>();
-        Integer size = inventory.getProductList().size();
-        for (int i = 0; i < size; i++) {
-            productList.add(itemService.toDto(inventory.getProductList().get(i)));
+        int size = inventory.getProductList().size();
+
+        try {
+            for (int i = 0; i < size; i++) {
+                productList.add(itemService.toDto(inventory.getProductList().get(i)));
+            }
+        }
+        catch(NullPointerException e) {
+                throw new NullPointerException("Inventory productList.size() returned null");
         }
         return InventoryDto.builder()
                 .id(inventory.getId())
