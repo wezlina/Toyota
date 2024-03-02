@@ -1,11 +1,11 @@
 package serhathar.saleservice.inventory.web;
 
-import serhathar.saleservice.inventory.api.InventoryDto;
-import serhathar.saleservice.inventory.api.InventoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import serhathar.saleservice.inventory.api.InventoryDto;
+import serhathar.saleservice.inventory.api.InventoryService;
 
 import java.util.List;
 
@@ -34,13 +34,15 @@ public class InventoryController {
     }
 
     @PutMapping("/{inventoryId}/products/{productId}/add_{amount}")
-    public void addProductToInventory(@PathVariable String inventoryId, @PathVariable String productId, @PathVariable Long amount) {
+    public ResponseEntity<InventoryResponse> addProductToInventory(@PathVariable String inventoryId, @PathVariable String productId, @PathVariable Long amount) {
         service.addProductToInventory(inventoryId, productId, amount);
+        return ResponseEntity.ok(null);
     }
 
     @PutMapping("/{inventoryId}/products/{productId}/remove_{amount}")
-    public void removeProductFromInventory(@PathVariable String inventoryId, @PathVariable String productId, @PathVariable Long amount) {
+    public ResponseEntity<InventoryResponse> removeProductFromInventory(@PathVariable String inventoryId, @PathVariable String productId, @PathVariable Long amount) {
         service.removeProductFromInventory(inventoryId, productId, amount);
+        return ResponseEntity.ok(null);
     }
 
     public List<InventoryResponse> toResponse(List<InventoryDto> inventoryDtoList) {

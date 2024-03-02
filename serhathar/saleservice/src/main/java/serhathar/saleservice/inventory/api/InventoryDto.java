@@ -2,7 +2,7 @@ package serhathar.saleservice.inventory.api;
 
 import lombok.Builder;
 import lombok.Data;
-import serhathar.saleservice.Item.impl.Item;
+import serhathar.saleservice.Item.api.ItemDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,5 +13,5 @@ public class InventoryDto {
 
     private String id;
     private String name;
-    private List<Item> productList = new ArrayList<>();
+    private List<ItemDto> productList = new ArrayList<>();
 }

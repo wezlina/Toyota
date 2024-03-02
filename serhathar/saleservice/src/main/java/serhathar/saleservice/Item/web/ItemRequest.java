@@ -13,7 +13,7 @@ public class ItemRequest {
     public ItemDto toDto() {
         return ItemDto.builder()
                 .amount(amount)
-                .productId(productId)
+                //.productId(productId)
                 .build();
     }
 }

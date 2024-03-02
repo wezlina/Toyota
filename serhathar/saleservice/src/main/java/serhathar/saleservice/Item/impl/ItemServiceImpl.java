@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import serhathar.saleservice.Item.api.ItemDto;
 import serhathar.saleservice.Item.api.ItemService;
+import serhathar.saleservice.inventory.client.ProductFeignClient;
 
 
 @RequiredArgsConstructor
 @Service
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository repository;
+    private final ProductFeignClient client;
 
     @Override
     public Boolean existsItemByProductId(String productId) {
@@ -43,14 +45,14 @@ public class ItemServiceImpl implements ItemService {
     public Item toEntity(ItemDto dto) {
         Item item = new Item();
         item.setAmount(dto.getAmount());
-        item.setProductId(dto.getProductId());
+        item.setProductId(dto.getProduct().getId());
         return item;
     }
 
     public ItemDto toDto(Item item) {
         return ItemDto.builder()
                 .id(item.getId())
-                .productId(item.getProductId())
+                .product(client.getProductById1(item.getProductId()))
                 .amount(item.getAmount())
                 .build();
     }

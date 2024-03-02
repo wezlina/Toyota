@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import serhathar.saleservice.inventory.api.ProductDto;
 
 @Builder
 @NoArgsConstructor
@@ -13,5 +14,5 @@ public class ItemDto {
 
     private String id;
     private Long amount;
-    private String productId;
+    private ProductDto product;
 }
