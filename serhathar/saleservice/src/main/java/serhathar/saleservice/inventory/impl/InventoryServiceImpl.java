@@ -10,6 +10,7 @@ import serhathar.saleservice.Item.impl.Item;
 import serhathar.saleservice.Item.impl.ItemServiceImpl;
 import serhathar.saleservice.inventory.api.InventoryDto;
 import serhathar.saleservice.inventory.api.InventoryService;
+import serhathar.saleservice.inventory.api.ProductDto;
 import serhathar.saleservice.inventory.client.ProductFeignClient;
 
 import java.util.ArrayList;
@@ -31,6 +32,42 @@ public class InventoryServiceImpl implements InventoryService {
         return toDto(repository.save(inventory));
     }
 
+    @Override
+    public List<ItemDto> findItemsByInventoryId(String inventoryId){
+        return getById(inventoryId).getProductList();
+    }
+
+    public ItemDto findItemInInventoryByProduct(List<ItemDto> itemList, ProductDto product){
+        if (itemList != null) {
+            for (ItemDto dto : itemList) {
+                if (dto.getProduct().equals(product)) {
+                    return dto;
+                }
+            }
+        }
+        else {
+            throw new NullPointerException("The itemList is returned a null value");
+        }
+        return null;
+    }
+
+    public Boolean checkItemsForProductExists(List<ItemDto> itemList, ProductDto product){
+
+        if (itemList != null) {
+            for (ItemDto dto : itemList) {
+                Boolean a = dto.getProduct().equals(product);
+                //Boolean b = dto.getProduct() == product;
+                if (a) {
+                    //return b;
+                    return a;
+                }
+            }
+        }
+        else {
+            throw new NullPointerException("The itemList is returned a null value");
+        }
+        return false;
+    }
 
     @Override
     @Transactional
@@ -46,9 +83,14 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     @Transactional
     public void addProductToInventory(String inventoryId, String productId, Long amount) {
-        if (itemService.existsItemByProductId(productId)) {
-            itemService.updateItemAmount(productId, amount);
-        } else {
+        if (checkItemsForProductExists(findItemsByInventoryId(inventoryId), client.getProductById1(productId))) {
+            //itemService.updateItemAmount(productId, amount);//burda itemi productId ile cagirıyoruz o yuzden hata oluyor.
+            ItemDto dto = findItemInInventoryByProduct(findItemsByInventoryId(inventoryId), client.getProductById1(productId));
+            dto.setAmount(dto.getAmount()+ amount);
+            itemService.updateItemAmount(dto.getId(), amount);
+            //itemService.updateItemAmount();
+        }
+        else {
             Inventory inventory = repository.getInventoryById(inventoryId);
             inventory.getProductList().add(itemService.createItem(productId, amount));
             updateInventory(inventoryId, toDto(inventory));
@@ -62,9 +104,11 @@ public class InventoryServiceImpl implements InventoryService {
         if (itemService.getItemByProductId(productId).getAmount().equals(amount)) {
             inventory.getProductList().remove(itemService.getItemByProductId(productId));//item listeden cikiyor ama item nesnesi silinmiyor, soft delete yok
             updateInventory(inventoryId, toDto(inventory));//soft delete will be here
-        } else if (itemService.getItemByProductId(productId).getAmount() < amount) {
+        }
+        else if (itemService.getItemByProductId(productId).getAmount() < amount) {
             throw new IllegalArgumentException("number of products to be removed cannot be greater than the existing one.");
-        } else {
+        }
+        else {
             itemService.updateItemAmount(productId, -amount);
         }
     }
@@ -106,7 +150,6 @@ public class InventoryServiceImpl implements InventoryService {
                 productList.add(itemService.toEntity(dto.getProductList().get(i)));
             }
         }
-
         inventory.setStatus(dto.getStatus());
         inventory.setName(dto.getName());
         inventory.setProductList(productList);
@@ -123,7 +166,6 @@ public class InventoryServiceImpl implements InventoryService {
                 productList.add(itemService.toDto(inventory.getProductList().get(i)));
             }
         }
-
         return InventoryDto.builder()
                 .id(inventory.getId())
                 .status(inventory.getStatus())

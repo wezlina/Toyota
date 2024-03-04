@@ -28,9 +28,13 @@ public class ItemServiceImpl implements ItemService {
                 .map(repository::save)*/
 
     @Override
-    public void updateItemAmount(String productId, Long amount) {
-        repository.getItemByProductId(productId).setAmount(repository.getItemByProductId(productId).getAmount() + amount);
-        repository.save(getItemByProductId(productId));
+    @Transactional
+    public void updateItemAmount(String id, Long amount) {
+        //repository.getItemByProductId(productId).setAmount(repository.getItemByProductId(productId).getAmount() + amount);
+        //repository.save(getItemByProductId(productId));
+       Item dto = repository.getById(id);
+       dto.setAmount(dto.getAmount() + amount);
+       repository.save(dto);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package serhathar.saleservice.inventory.api;
 
 
+import serhathar.saleservice.Item.api.ItemDto;
+
 import java.util.List;
 
 public interface InventoryService {
@@ -9,6 +11,8 @@ public interface InventoryService {
     List<InventoryDto> getAllInventories();
 
     InventoryDto getById(String id);
+
+    List<ItemDto> findItemsByInventoryId(String inventoryId);
 
     InventoryDto updateInventory(String id, InventoryDto dto);
 

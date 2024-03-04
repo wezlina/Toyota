@@ -25,6 +25,7 @@ public class Item {
     @Column(name = COL_AMOUNT)
     private Long amount;
 
-    @Column(name = COL_PRODUCT, unique = true)
-    private String productId;//varolan urun eklenince sayi degistirme kismi hatali, eger itemi varolan bir product yeni bir sepete ekleniyorsa eklenme calismiyor. varolan item kontrol sistemi butun itemleri tarıyor onun yerine o sepette bulunan itemlerde tarama yapilmali.
+    @Column(name = COL_PRODUCT, unique = false)
+    private String productId;//varolan urun eklenince sayi degistirme kismi hatali, eger itemi varolan bir product yeni bir sepete ekleniyorsa eklenme calismiyor.
+    // item kontrol sistemi butun itemleri tarıyor onun yerine o sepette bulunan itemlerde tarama yapilmali.
 }
