@@ -107,6 +107,7 @@ public class InventoryServiceImpl implements InventoryService {
             }
         }
 
+        inventory.setStatus(dto.getStatus());
         inventory.setName(dto.getName());
         inventory.setProductList(productList);
         return inventory;
@@ -125,6 +126,7 @@ public class InventoryServiceImpl implements InventoryService {
 
         return InventoryDto.builder()
                 .id(inventory.getId())
+                .status(inventory.getStatus())
                 .productList(productList)
                 .name(inventory.getName())
                 .build();

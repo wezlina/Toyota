@@ -12,6 +12,7 @@ import java.util.List;
 public class InventoryDto {
 
     private String id;
+    private Boolean status;
     private String name;
     private List<ItemDto> productList = new ArrayList<>();
 }

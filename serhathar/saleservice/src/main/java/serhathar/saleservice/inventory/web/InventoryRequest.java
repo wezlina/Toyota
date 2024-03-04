@@ -14,10 +14,12 @@ public class InventoryRequest {
 
     private String name;
     private List<Item> productList;
+    private Boolean status;
 
     public InventoryDto toDto() {
         return InventoryDto.builder()
                 .name(name)
+                .status(status)
                 //.productList
                 .build();
     }

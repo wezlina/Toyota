@@ -21,6 +21,7 @@ import java.util.List;
 public class Inventory {
     private static final String Table = "inventory";
     private static final String COL_ID = "id";
+    private static final String COL_STATUS = "status";
     private static final String COL_NAME = "name";
     private static final String COL_LIST = "product_list";
 
@@ -29,6 +30,9 @@ public class Inventory {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @Column(name = COL_ID)
     private String id;
+
+    @Column(name = COL_STATUS)
+    private Boolean status;
 
     @Column(name = COL_NAME)
     private String name;

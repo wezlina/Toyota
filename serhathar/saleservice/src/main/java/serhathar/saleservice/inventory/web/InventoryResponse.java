@@ -13,12 +13,14 @@ public class InventoryResponse {
 
     private String id;
     private String name;
+    private Boolean status;
     private List<ItemDto> productList;
 
     public static InventoryResponse toResponse(InventoryDto dto) {
         return InventoryResponse.builder()
                 .id(dto.getId())
                 .productList(dto.getProductList())
+                .status(dto.getStatus())
                 .name(dto.getName())
                 .build();
     }
