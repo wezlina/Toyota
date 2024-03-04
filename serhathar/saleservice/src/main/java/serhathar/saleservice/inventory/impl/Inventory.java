@@ -32,7 +32,7 @@ public class Inventory {
     private String id;
 
     @Column(name = COL_STATUS)
-    private Boolean status;
+    private Boolean status = true;
 
     @Column(name = COL_NAME)
     private String name;

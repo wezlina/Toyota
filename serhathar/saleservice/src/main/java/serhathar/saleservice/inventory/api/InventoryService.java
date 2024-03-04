@@ -14,6 +14,8 @@ public interface InventoryService {
 
     List<ItemDto> findItemsByInventoryId(String inventoryId);
 
+    void deleteInventory(String inventoryId);
+
     InventoryDto updateInventory(String id, InventoryDto dto);
 
     void addProductToInventory(String inventoryId, String productId, Long amount);

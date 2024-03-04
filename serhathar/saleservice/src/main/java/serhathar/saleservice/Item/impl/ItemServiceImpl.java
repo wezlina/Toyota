@@ -56,6 +56,7 @@ public class ItemServiceImpl implements ItemService {
     public ItemDto toDto(Item item) {
         return ItemDto.builder()
                 .id(item.getId())
+                .status(item.getStatus())
                 .product(client.getProductById1(item.getProductId()))
                 .amount(item.getAmount())
                 .build();

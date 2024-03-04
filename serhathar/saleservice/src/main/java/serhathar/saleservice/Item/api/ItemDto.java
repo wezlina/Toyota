@@ -14,5 +14,6 @@ public class ItemDto {
 
     private String id;
     private Long amount;
+    private Boolean status;
     private ProductDto product;
 }

@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Item {
     private static final String Table = "item";
     private static final String COL_ID = "id";
+    private static final String COL_STATUS = "status";
     private static final String COL_PRODUCT = "productId";
     private static final String COL_AMOUNT = "amount";
 
@@ -21,6 +22,9 @@ public class Item {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @Column(name = COL_ID)
     private String id;
+
+    @Column(name =COL_STATUS)
+    private Boolean status = true;
 
     @Column(name = COL_AMOUNT)
     private Long amount;

@@ -10,9 +10,11 @@ public class ItemRequest {
 
     private String productId;
     private Long amount;
+    private Boolean status;
     public ItemDto toDto() {
         return ItemDto.builder()
                 .amount(amount)
+                .status(status)
                 //.productId(productId)
                 .build();
     }

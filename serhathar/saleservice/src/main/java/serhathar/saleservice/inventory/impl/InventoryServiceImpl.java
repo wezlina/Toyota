@@ -34,7 +34,16 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public List<ItemDto> findItemsByInventoryId(String inventoryId){
+
         return getById(inventoryId).getProductList();
+    }
+
+    @Override
+    @Transactional
+    public void deleteInventory(String inventoryId) {
+        Inventory inventory = repository.getInventoryById(inventoryId);
+        inventory.setStatus(false);
+        updateInventory(inventoryId, toDto(inventory));
     }
 
     public ItemDto findItemInInventoryByProduct(List<ItemDto> itemList, ProductDto product){
@@ -150,7 +159,6 @@ public class InventoryServiceImpl implements InventoryService {
                 productList.add(itemService.toEntity(dto.getProductList().get(i)));
             }
         }
-        inventory.setStatus(dto.getStatus());
         inventory.setName(dto.getName());
         inventory.setProductList(productList);
         return inventory;
