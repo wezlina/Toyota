@@ -110,15 +110,19 @@ public class InventoryServiceImpl implements InventoryService {
     @Transactional
     public void removeProductFromInventory(String inventoryId, String productId, Long amount) {
         Inventory inventory = repository.getInventoryById(inventoryId);
-        if (itemService.getItemByProductId(productId).getAmount().equals(amount)) {
-            inventory.getProductList().remove(itemService.getItemByProductId(productId));//item listeden cikiyor ama item nesnesi silinmiyor, soft delete yok
-            updateInventory(inventoryId, toDto(inventory));//soft delete will be here
-        }
-        else if (itemService.getItemByProductId(productId).getAmount() < amount) {
-            throw new IllegalArgumentException("number of products to be removed cannot be greater than the existing one.");
-        }
-        else {
-            itemService.updateItemAmount(productId, -amount);
+        ItemDto item = findItemInInventoryByProduct(toDto(inventory).getProductList(), client.getProductById1(productId));
+
+        if(checkItemsForProductExists(toDto(inventory).getProductList(), client.getProductById1(productId))){
+
+            if(item.getAmount().equals(amount)){
+                inventory.getProductList().remove(itemService.toEntity(item));
+                itemService.deleteItem(item.getId());
+                updateInventory(inventoryId, toDto(inventory));
+                itemService.updateItemAmount(item.getId(), -amount);
+            }
+            else if(item.getAmount() > amount){
+                itemService.updateItemAmount(item.getId(), -amount);
+            }
         }
     }
 
