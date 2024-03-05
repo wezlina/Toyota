@@ -167,7 +167,6 @@ public class InventoryServiceImpl implements InventoryService {
         return inventory;
     }
 
-
     private InventoryDto toDto(Inventory inventory) {
         List<ItemDto> productList = new ArrayList<>();
         if (inventory.getProductList() != null){

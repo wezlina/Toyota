@@ -99,6 +99,7 @@ public class ProductServiceImpl implements ProductService {
     private Product checkProductUpdate(ProductDto dto, Product product) {
         product.setName(dto.getName() == null ? product.getName() : dto.getName());
         product.setPrice(dto.getPrice() == null ? product.getPrice() : dto.getPrice());
+        product.setCategory(dto.getCategory() == null ? product.getCategory() : categoryService.toEntity(dto.getCategory()));
         product.setBrand(dto.getBrand() == null ? product.getBrand() : dto.getBrand());
         product.setBarcode(dto.getBarcode() == null ? product.getBarcode() : dto.getBarcode());
         product.setDescription(dto.getDescription() == null ? product.getDescription() : dto.getDescription());
