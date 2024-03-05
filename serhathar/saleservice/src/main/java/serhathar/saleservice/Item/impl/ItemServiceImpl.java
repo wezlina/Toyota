@@ -37,6 +37,12 @@ public class ItemServiceImpl implements ItemService {
        repository.save(dto);
     }
 
+    public void deleteItem(String itemId) {
+        Item dto = repository.getById(itemId);
+        dto.setStatus(false);
+        repository.save(dto);
+    }
+
     @Override
     @Transactional
     public Item createItem(String productId, Long amount) {
