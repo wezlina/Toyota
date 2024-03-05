@@ -83,7 +83,7 @@ public class InventoryServiceImpl implements InventoryService {
     public InventoryDto updateInventory(String id, InventoryDto dto) {
 
         return repository.findById(id)
-                .map(inventory -> checkInventoryUpdate(dto, inventory))
+                //.map(inventory -> checkInventoryUpdate(dto, inventory))
                 .map(repository::save)
                 .map(this::toDto)
                 .orElseThrow(EntityNotFoundException::new);
@@ -116,7 +116,7 @@ public class InventoryServiceImpl implements InventoryService {
 
             if(item.getAmount().equals(amount)){
                 inventory.getProductList().remove(itemService.toEntity(item));
-                itemService.deleteItem(item.getId());
+                itemService.deleteItemByStatus(item.getId());
                 updateInventory(inventoryId, toDto(inventory));
                 itemService.updateItemAmount(item.getId(), -amount);
             }
@@ -136,7 +136,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     private Inventory checkInventoryUpdate(InventoryDto dto, Inventory inventory) {
         inventory.setName(dto.getName() == null ? inventory.getName() : dto.getName());
-        //inventory.setProductList(dto.getProductList() == null ? inventory.getProductList() : dto.getProductList());
+        //inventory.setProductList(dto.getProductList() == null ? inventory.getProductList() : itemService.toEntityList(dto.getProductList()));
         inventory.setName(dto.getName() == null ? inventory.getName() : dto.getName());
         return inventory;
     }

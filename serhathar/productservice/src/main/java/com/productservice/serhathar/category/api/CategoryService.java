@@ -11,11 +11,11 @@ public interface CategoryService {
 
     Category getById(String id);
 
-    String deleteCategory(String id);
+    CategoryDto deleteCategory(String id);
 
     CategoryDto updateCategory(String id, CategoryDto dto);
 
-    String activateCategory(String id);
+    CategoryDto activateCategory(String id);
 
     Category getByName(String name);
 

@@ -35,11 +35,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public String activateCategory(String id) {
-        Category category = repository.getById(id);
+    public CategoryDto activateCategory(String id) {
+        Category category = repository.getReferenceById(id);
         category.setStatus(true);
         updateCategory(id, toDto(category));
-        return "Category successfully activated";
+        return toDto(category);
     }
 
     @Override
@@ -67,11 +67,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public String deleteCategory(String id) {
-        Category category = repository.getById(id);
+    public CategoryDto deleteCategory(String id) {
+        Category category = repository.getReferenceById(id);
         category.setStatus(false);
         updateCategory(id, toDto(category));
-        return "Category successfully deactivated";
+        return toDto(category);
     }
 
     public Category toEntity(CategoryDto dto) {

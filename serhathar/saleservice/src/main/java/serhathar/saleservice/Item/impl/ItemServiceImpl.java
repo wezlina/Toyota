@@ -37,7 +37,7 @@ public class ItemServiceImpl implements ItemService {
        repository.save(dto);
     }
 
-    public void deleteItem(String itemId) {
+    public void deleteItemByStatus(String itemId) {
         Item dto = repository.getById(itemId);
         dto.setStatus(false);
         repository.save(dto);

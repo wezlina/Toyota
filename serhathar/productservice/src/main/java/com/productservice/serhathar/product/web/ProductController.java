@@ -24,7 +24,7 @@ public class ProductController {
     @GetMapping(path = "/get/{categoryName}")
     public ResponseEntity<List<ProductResponse>> getAllProducts(@PathVariable String categoryName) {
         List<ProductResponse> productResponseList = toResponse(service.getProductByCategory(categoryName));
-        return ResponseEntity.ok(productResponseList);
+        return ResponseEntity.ok(productResponseList);//bunda bi sıkıntı var
     }
 
     @GetMapping(path = "/get/{id}")

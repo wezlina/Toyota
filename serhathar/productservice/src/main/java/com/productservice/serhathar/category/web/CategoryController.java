@@ -40,18 +40,20 @@ public class CategoryController {
     }
 
     @PutMapping(path = "/activate-status/{id}")
-    public String activateCategory(@PathVariable(value = "id") String id) {
-        return categoryService.activateCategory(id);
+    public ResponseEntity<CategoryResponse> activateCategory(@PathVariable(value = "id") String id) {
+        CategoryDto dto = categoryService.activateCategory(id);
+        return ResponseEntity.ok(CategoryResponse.toResponse(dto));
     }
 
     @PutMapping(path = "/delete-status/{id}")
-    public String delete_statusCategory(@PathVariable(value = "id") String id) {
-        return categoryService.deleteCategory(id);
+    public ResponseEntity<CategoryResponse> delete_statusCategory(@PathVariable(value = "id") String id) {
+        CategoryDto dto = categoryService.deleteCategory(id);
+        return ResponseEntity.ok(CategoryResponse.toResponse(dto));
     }
 
     @DeleteMapping(path = "/delete/{id}")
     void delete(@PathVariable String id) {
-        //categoryService.deleteCategory(id);
+        //categoryService.deleteCategory(id);//will only open for admin
     }
 
     public List<CategoryResponse> toResponse(List<CategoryDto> categoryDtoList) {
