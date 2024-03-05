@@ -108,13 +108,12 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     @Transactional
-    public void removeProductFromInventory(String inventoryId, String productId, Long amount) {
+    public InventoryDto removeProductFromInventory(String inventoryId, String productId, Long amount) {
         Inventory inventory = repository.getInventoryById(inventoryId);
         ProductDto productDto = client.getProductById1(productId);
         ItemDto itemDto = findItemInInventoryByProduct(toDto(inventory).getProductList(), productDto);
 
         if (checkItemsForProductExists(toDto(inventory).getProductList(), productDto)) {
-
             if (itemDto.getAmount().equals(amount)) {
                 //inventory.getProductList().remove(itemService.toEntity(itemDto)); disabled for soft delete
                 itemService.deleteItemByStatus(itemDto.getId());
@@ -125,6 +124,7 @@ public class InventoryServiceImpl implements InventoryService {
                 itemService.updateItemAmount(itemDto.getId(), -amount);
             }
         }
+        return toDto(inventory);
     }
 
     private void checkInventoryExists(InventoryDto dto) {

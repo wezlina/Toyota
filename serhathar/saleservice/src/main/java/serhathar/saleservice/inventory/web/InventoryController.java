@@ -35,14 +35,14 @@ public class InventoryController {
 
     @PutMapping("/{inventoryId}/products/{productId}/add_{amount}")
     public ResponseEntity<InventoryResponse> addProductToInventory(@PathVariable String inventoryId, @PathVariable String productId, @PathVariable Long amount) {
-        service.addProductToInventory(inventoryId, productId, amount);
-        return ResponseEntity.ok(null);
+        InventoryDto dto = service.addProductToInventory(inventoryId, productId, amount);
+        return ResponseEntity.ok(InventoryResponse.toResponse(dto));
     }
 
     @PutMapping("/{inventoryId}/products/{productId}/remove_{amount}")
     public ResponseEntity<InventoryResponse> removeProductFromInventory(@PathVariable String inventoryId, @PathVariable String productId, @PathVariable Long amount) {
-        service.removeProductFromInventory(inventoryId, productId, amount);
-        return ResponseEntity.ok(null);
+        InventoryDto dto = service.removeProductFromInventory(inventoryId, productId, amount);
+        return ResponseEntity.ok(InventoryResponse.toResponse(dto));
     }
 
     public List<InventoryResponse> toResponse(List<InventoryDto> inventoryDtoList) {
