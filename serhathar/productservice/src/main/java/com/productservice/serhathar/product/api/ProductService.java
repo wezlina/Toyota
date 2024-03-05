@@ -11,9 +11,9 @@ public interface ProductService {
 
     List<ProductDto> findProductByStatusIsTrue();
 
-    String deleteProduct(String id);
+    ProductDto deleteProduct(String id);
 
-    String activateProduct(String id);
+    ProductDto activateProduct(String id);
 
     ProductDto updateProduct(String id, ProductDto product);
 

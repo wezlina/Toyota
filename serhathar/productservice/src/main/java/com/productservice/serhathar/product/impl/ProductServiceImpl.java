@@ -72,20 +72,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public String deleteProduct(String id) {
+    public ProductDto deleteProduct(String id) {
         Product product = repository.getProductById(id);
         product.setStatus(false);
         updateProduct(id, toDto(product));
-        return "Product successfully deactivated";
+        return toDto(product);
     }
 
     @Override
     @Transactional
-    public String activateProduct(String id) {
+    public ProductDto activateProduct(String id) {
         Product product = repository.getProductById(id);
         product.setStatus(true);
         updateProduct(id, toDto(product));
-        return "Product successfully activated";
+        return toDto(product);
     }
 
     private void checkProductExists(ProductDto dto) {

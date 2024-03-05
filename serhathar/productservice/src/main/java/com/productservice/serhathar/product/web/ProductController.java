@@ -57,21 +57,21 @@ public class ProductController {
     }
 
     @PutMapping(path = "/activate-status/{id}")
-    public String activateCategory(@PathVariable(value = "id") String id) {
-
-        return service.activateProduct(id);
+    public ResponseEntity<ProductResponse> activateCategory(@PathVariable(value = "id") String id) {
+        ProductDto dto = service.activateProduct(id);
+        return ResponseEntity.ok(ProductResponse.toResponse(dto));
     }
 
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable(value = "id") String id, @Valid @RequestBody ProductRequest request) {
-        ProductDto product = service.updateProduct(id, request.toDto());
-        return ResponseEntity.ok(ProductResponse.toResponse(product));
+        ProductDto dto = service.updateProduct(id, request.toDto());
+        return ResponseEntity.ok(ProductResponse.toResponse(dto));
     }
 
     @PutMapping(path = "/delete-status/{id}")
-    public String delete_statusProduct(@PathVariable(value = "id") String id) {
-
-        return service.deleteProduct(id);
+    public ResponseEntity<ProductResponse> delete_statusProduct(@PathVariable(value = "id") String id) {
+        ProductDto dto = service.deleteProduct(id);
+        return ResponseEntity.ok(ProductResponse.toResponse(dto));
     }
 
     public List<ProductResponse> toResponse(List<ProductDto> productDtoList) {
