@@ -32,13 +32,13 @@ public class ItemServiceImpl implements ItemService {
     public void updateItemAmount(String id, Long amount) {
         //repository.getItemByProductId(productId).setAmount(repository.getItemByProductId(productId).getAmount() + amount);
         //repository.save(getItemByProductId(productId));
-       Item dto = repository.getById(id);
+       Item dto = repository.getReferenceById(id);
        dto.setAmount(dto.getAmount() + amount);
        repository.save(dto);
     }
 
     public void deleteItemByStatus(String itemId) {
-        Item dto = repository.getById(itemId);
+        Item dto = repository.getReferenceById(itemId);
         dto.setStatus(false);
         repository.save(dto);
     }

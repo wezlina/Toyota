@@ -12,6 +12,7 @@ import serhathar.saleservice.inventory.api.InventoryService;
 import serhathar.saleservice.inventory.api.ProductDto;
 import serhathar.saleservice.inventory.client.ProductFeignClient;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -154,44 +155,27 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     private Inventory toEntity(InventoryDto dto) {
-        /*Inventory inventory = new Inventory();
-        List<Item> productList = new ArrayList<>();
-
-        if(dto.getProductList() != null){
-            int size = dto.getProductList().size();
-            for (int i = 0; i < size; i++) {
-                productList.add(itemService.toEntity(dto.getProductList().get(i)));
-            }
-        }
-        inventory.setName(dto.getName());
-        inventory.setProductList(productList);*/
-
         Inventory inventory = new Inventory();
         inventory.setName(dto.getName());
-        inventory.setProductList(
-                dto.getProductList()
-                        .stream()
-                        .map(itemService::toEntity)
-                        .collect(Collectors.toList())
-        );
+        if(dto.getProductList() != null){
+            inventory.setProductList(
+                    dto.getProductList()
+                            .stream()
+                            .map(itemService::toEntity)
+                            .collect(Collectors.toList()));
+        }
         return inventory;
     }
 
 
     private InventoryDto toDto(Inventory inventory) {
-        /*List<ItemDto> productList = new ArrayList<>();
-
+        List<ItemDto> productList = new ArrayList<>();
         if (inventory.getProductList() != null){
-            int size = inventory.getProductList().size();
-            for (int i = 0; i < size; i++) {
-                productList.add(itemService.toDto(inventory.getProductList().get(i)));
-            }
-        }*/
-
-        List<ItemDto> productList = inventory.getProductList()
-                .stream()
-                .map(itemService::toDto)
-                .collect(Collectors.toList());
+             productList = inventory.getProductList()
+                    .stream()
+                    .map(itemService::toDto)
+                    .toList();
+        }
 
         return InventoryDto.builder()
                 .id(inventory.getId())
