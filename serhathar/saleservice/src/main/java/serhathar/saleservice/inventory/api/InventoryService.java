@@ -18,7 +18,7 @@ public interface InventoryService {
 
     InventoryDto updateInventory(String id, InventoryDto dto);
 
-    void addProductToInventory(String inventoryId, String productId, Long amount);
+    InventoryDto addProductToInventory(String inventoryId, String productId, Long amount);
 
     void removeProductFromInventory(String inventoryId, String productId, Long amount);
 }
